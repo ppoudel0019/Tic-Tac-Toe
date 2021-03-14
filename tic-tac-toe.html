@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!-- @p.poudel 02/28/2019 -->
+<html lang= "en">
+<head>
+<title>Tic-Tac-Toe Game</title>
+<meta charset="UTF-8">
+<style>
+body {
+margin: 0 auto;
+font-family: Helvetica;
+font-size: 20pt;
+background-color: #ffe6e6;
+text-align:center;
+}
+td {
+width: 5px;
+height: 5px;
+border:1px solid #772953;
+background-color: #FEF6FC;
+padding: 5px 5px 5px 5px;
+margin: auto;
+font-size: 15pt;
+font-weight: bold;
+color: #999;
+}
+table.center {
+margin-left:auto;
+margin-right:auto;
+}
+button, .button {
+display: inline-block;
+height: 38px;
+padding: 0 23px;
+color: #772953;
+text-align: center;
+background-color: #e6faff;
+cursor: pointer;
+box-sizing: border-box;
+}
+</style>
+</head>
+<body >
+<h1>Tic-Tac-Toe</h1>
+<p> You are 'X' and the computer is 'O'. You have four tokens to play this game. The oldest one will be removed as you make your fifth move
+and so on. Good luck!</p>
+
+<table class="center">
+<tr>
+<td><button id="button11" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button12" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button13" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button14" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+</tr>
+<tr>
+<td><button id="button21" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button22" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button23" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button24" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+</tr>
+<tr>
+<td><button id="button31" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button32" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button33" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button34" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+</tr>
+<tr>
+<td><button id="button41" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button42" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button43" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+<td><button id="button44" type="button" onclick= "whenClicked(this.id); winner();"> . </button> </td>
+</tr>
+</table>
+<br>
+<br>
+<script>
+//variables
+var numOfX = ["","","",""];
+var numOfO = ["","","",""];
+var numOfXCount = 0;
+var numOfOCount = 0;
+var replaceX = 0;
+var replaceO = 0;
+var buttons = new Array();
+buttons[0] = "button11";
+buttons[1] = "button12";
+buttons[2] = "button13";
+buttons[3] = "button14";
+buttons[4] = "button21";
+buttons[5] = "button22";
+buttons[6] = "button23";
+buttons[7] = "button24";
+buttons[8] = "button31";
+buttons[9] = "button32";
+buttons[10] = "button33";
+buttons[11] = "button34";
+buttons[12] = "button41";
+buttons[13] = "button42";
+buttons[14] = "button43";
+buttons[15] = "button44";
+function randomIdSelect()
+{
+randomButtonIndex = Math.random();
+randomButtonIndex = Math.round(randomButtonIndex * (buttons.length-1) );
+var randomButtonVal = buttons[randomButtonIndex];
+return randomButtonVal;
+}
+function whenClicked(clickedID)
+{
+document.getElementById(clickedID).disabled = true;
+document.getElementById(clickedID).innerHTML = "X";
+if(numOfXCount < 4)
+{
+numOfX[numOfXCount]= clickedID;
+}
+else if (numOfXCount >= 4)
+{
+document.getElementById(numOfX[replaceX]).disabled = false;
+document.getElementById(numOfX[replaceX]).innerHTML = ".";
+numOfX[replaceX] = clickedID;
+replaceX = (replaceX + 1) % 4;
+}
+var randButton = randomIdSelect();
+while(randButton == clickedID || document.getElementById(randButton).disabled == true)
+{
+var randButton = randomIdSelect();
+}
+document.getElementById(randButton).disabled = true;
+document.getElementById(randButton).innerHTML = "O";
+if(numOfOCount < 4)
+{
+numOfO[numOfOCount]= randButton;
+}
+else if (numOfOCount >= 4)
+{
+document.getElementById(numOfO[replaceO]).disabled = false;
+document.getElementById(numOfO[replaceO]).innerHTML = ".";
+numOfO[replaceO]= randButton;
+replaceO = (replaceO + 1) % 4;
+}
+numOfXCount +=1;
+numOfOCount +=1;
+}
+function winner()
+{
+//1st ROW
+if(document.getElementById("button11").innerHTML == "X" &&
+document.getElementById("button12").innerHTML == "X" &&
+document.getElementById("button13").innerHTML == "X" &&
+document.getElementById("button14").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button11").innerHTML == "O" &&
+document.getElementById("button12").innerHTML == "O" &&
+document.getElementById("button13").innerHTML == "O" &&
+document.getElementById("button14").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//2nd ROW
+else if(document.getElementById("button21").innerHTML == "X" &&
+document.getElementById("button22").innerHTML == "X" &&
+document.getElementById("button23").innerHTML == "X" &&
+document.getElementById("button24").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button21").innerHTML == "O" &&
+document.getElementById("button22").innerHTML == "O" &&
+document.getElementById("button23").innerHTML == "O" &&
+document.getElementById("button24").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//3rd ROW
+else if(document.getElementById("button31").innerHTML == "X" &&
+document.getElementById("button32").innerHTML == "X" &&
+document.getElementById("button33").innerHTML == "X" &&
+document.getElementById("button34").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button31").innerHTML == "O" &&
+document.getElementById("button32").innerHTML == "O" &&
+document.getElementById("button33").innerHTML == "O" &&
+document.getElementById("button34").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//4th ROW
+else if(document.getElementById("button41").innerHTML == "X" &&
+document.getElementById("button42").innerHTML == "X" &&
+document.getElementById("button43").innerHTML == "X" &&
+document.getElementById("button44").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button41").innerHTML == "O" &&
+document.getElementById("button42").innerHTML == "O" &&
+document.getElementById("button43").innerHTML == "O" &&
+document.getElementById("button44").innerHTML == "O")
+{alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//Columns check
+//1st COLUMN
+else if(document.getElementById("button11").innerHTML == "X" &&
+document.getElementById("button21").innerHTML == "X" &&
+document.getElementById("button31").innerHTML == "X" &&
+document.getElementById("button41").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button11").innerHTML == "O" &&
+document.getElementById("button21").innerHTML == "O" &&
+document.getElementById("button31").innerHTML == "O" &&
+document.getElementById("button41").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//2nd COLUMN
+else if(document.getElementById("button12").innerHTML == "X" &&
+document.getElementById("button22").innerHTML == "X" &&
+document.getElementById("button32").innerHTML == "X" &&
+document.getElementById("button42").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button12").innerHTML == "O" &&
+document.getElementById("button22").innerHTML == "O" &&
+document.getElementById("button32").innerHTML == "O" &&
+document.getElementById("button42").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//3rd COLUMN
+else if(document.getElementById("button13").innerHTML == "X" &&
+document.getElementById("button23").innerHTML == "X" &&
+document.getElementById("button33").innerHTML == "X" &&
+document.getElementById("button43").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button13").innerHTML == "O" &&
+document.getElementById("button23").innerHTML == "O" &&
+document.getElementById("button33").innerHTML == "O" &&
+document.getElementById("button43").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//4th COLUMN
+else if(document.getElementById("button14").innerHTML == "X" &&
+document.getElementById("button24").innerHTML == "X" &&
+document.getElementById("button34").innerHTML == "X" &&
+document.getElementById("button44").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button14").innerHTML == "O" &&
+document.getElementById("button24").innerHTML == "O" &&
+document.getElementById("button34").innerHTML == "O" &&
+document.getElementById("button44").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//diagonals
+//diagonal-1
+else if(document.getElementById("button11").innerHTML == "X" &&
+document.getElementById("button22").innerHTML == "X" &&
+document.getElementById("button33").innerHTML == "X" &&
+document.getElementById("button44").innerHTML == "X")
+{alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button11").innerHTML == "O" &&
+document.getElementById("button12").innerHTML == "O" &&
+document.getElementById("button13").innerHTML == "O" &&
+document.getElementById("button14").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+//diagonal-2
+else if(document.getElementById("button14").innerHTML == "X" &&
+document.getElementById("button23").innerHTML == "X" &&
+document.getElementById("button32").innerHTML == "X" &&
+document.getElementById("button41").innerHTML == "X")
+{
+alert("YAY !! You are the winner!!");
+endGame();
+}
+else if(document.getElementById("button14").innerHTML == "O" &&
+document.getElementById("button23").innerHTML == "O" &&
+document.getElementById("button32").innerHTML == "O" &&
+document.getElementById("button41").innerHTML == "O")
+{
+alert("Oops!! Computer is the winner!!");
+endGame();
+}
+}
+function endGame()
+{
+document.getElementById("button11").disabled = true;
+document.getElementById("button12").disabled = true;
+document.getElementById("button13").disabled = true;
+document.getElementById("button14").disabled = true;
+document.getElementById("button21").disabled = true;
+document.getElementById("button22").disabled = true;
+document.getElementById("button23").disabled = true;
+document.getElementById("button24").disabled = true;
+document.getElementById("button31").disabled = true;
+document.getElementById("button32").disabled = true;
+document.getElementById("button33").disabled = true;
+document.getElementById("button34").disabled = true;
+document.getElementById("button41").disabled = true;
+document.getElementById("button42").disabled = true;
+document.getElementById("button43").disabled = true;
+document.getElementById("button44").disabled = true;
+}
+function confirmBox()
+{
+if(confirm("Are you sure you want to Reset?"))
+{
+location.reload();
+}
+else
+{
+return 0;
+}
+}
+</script>
+<button type="button" onclick= "confirmBox();">Reset</button>
+</body>
+</html>
